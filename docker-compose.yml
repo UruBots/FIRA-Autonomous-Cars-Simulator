@@ -1,0 +1,23 @@
+services:
+  fira_sim:
+    build: .
+    container_name: fira_simulator
+    environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+      - LIBGL_ALWAYS_SOFTWARE=1 
+    volumes:
+      - .:/root/catkin_ws/src/FIRA-Autonomous-Cars-Simulator
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ~/.Xauthority:/root/.Xauthority
+    network_mode: "host"
+    privileged: true
+    command: bash -c 'tail -f /dev/null'
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]
+    # runtime: nvidia
